@@ -1,0 +1,903 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_CRATEDB",
+      "label": "CrateDB",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "postgres",
+      "pluginName": "PostgreSQL"
+    },
+    {
+      "name": "DS_TESTDATA_DB",
+      "label": "TestData DB",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "testdata",
+      "pluginName": "TestData DB"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.3.6"
+    },
+    {
+      "type": "panel",
+      "id": "grafana-worldmap-panel",
+      "name": "Worldmap Panel",
+      "version": "0.3.2"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "postgres",
+      "name": "PostgreSQL",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "testdata",
+      "name": "TestData DB",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": null,
+  "iteration": 1612021047377,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "time"
+      ],
+      "type": "dashboards"
+    }
+  ],
+  "panels": [
+    {
+      "aliasColors": {
+        "AirQualityUnit01": "dark-blue",
+        "AirQualityUnit02": "dark-purple"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_CRATEDB}",
+      "description": "IPA overall by Station",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": [
+            {
+              "title": "aa",
+              "url": ""
+            }
+          ],
+          "unit": "IPA"
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 4,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 4,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": false
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.6",
+      "pointradius": 3,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "entity_id",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(dateobserved,$interval),\n  entity_id AS metric,\n  max(airqualityindex) AS \"Value\"\nFROM etairqualityobserved\nGROUP BY 1,2\nORDER BY 1,2",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "airqualityindex"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "max"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "Value"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "etairqualityobserved",
+          "timeColumn": "dateobserved",
+          "where": []
+        }
+      ],
+      "thresholds": [
+        {
+          "$$hashKey": "object:2955",
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 39,
+          "yaxis": "left"
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Overall IPA ",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "max": 100,
+        "min": 0,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:852",
+          "format": "IPA",
+          "label": "IPA",
+          "logBase": 1,
+          "max": "100",
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:853",
+          "format": "IPA",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "${DS_CRATEDB}",
+      "description": "This panel shows the last IPA value detected for each station",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "mappings": [],
+          "max": 80,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-red",
+                "value": null
+              },
+              {
+                "color": "light-orange",
+                "value": 20
+              },
+              {
+                "color": "light-yellow",
+                "value": 40
+              },
+              {
+                "color": "light-green",
+                "value": 60
+              }
+            ]
+          },
+          "unit": "IPA"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 7,
+        "x": 12,
+        "y": 0
+      },
+      "id": 8,
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": false
+      },
+      "pluginVersion": "7.3.6",
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "entity_id",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  dateobserved AS \"time\",\n  entity_id AS metric,\n  airqualityindex AS \"value\"\nFROM etairqualityobserved\nORDER BY entity_id ",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "airqualityindex"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "etairqualityobserved",
+          "timeColumn": "dateobserved",
+          "where": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Current IPA Value",
+      "type": "gauge"
+    },
+    {
+      "circleMaxSize": "10",
+      "circleMinSize": "10",
+      "colors": [
+        "#FF7383",
+        "#FFB357",
+        "#FFEE52",
+        "#96D98D"
+      ],
+      "datasource": "${DS_CRATEDB}",
+      "decimals": 4,
+      "description": "This panel show the distribution of air quality stations and  the contamination level detected",
+      "esMetric": "Count",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "hideEmpty": false,
+      "hideZero": false,
+      "id": 2,
+      "initialZoom": "10",
+      "locationData": "table",
+      "mapCenter": "custom",
+      "mapCenterLatitude": "40.4167",
+      "mapCenterLongitude": "-3.70325",
+      "maxDataPoints": 1,
+      "mouseWheelZoom": true,
+      "pluginVersion": "7.3.6",
+      "showLegend": true,
+      "stickyLabels": true,
+      "tableQueryOptions": {
+        "geohashField": "geohash",
+        "labelField": "metric",
+        "latitudeField": "latitude",
+        "longitudeField": "longitude",
+        "metricField": "value",
+        "queryType": "coordinates"
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "entity_id",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  b.entity_id AS \"metric\",\r\n  airqualityindex AS \"value\",\r\n  latitude AS \"latitude\",\r\n  longitude AS \"longitude\",\r\n  lastdateobserved\r\nFROM \r\n  (select entity_id, max(dateobserved) as \"lastdateobserved\"\r\n  from etairqualityobserved\r\n  group by entity_id) a\r\nINNER JOIN\r\netairqualityobserved b\r\non a.entity_id = b.entity_id and b.dateobserved = a.lastdateobserved",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "airqualityindex"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "latitude"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "latitude"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "longitude"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "longitude"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "etairqualityobserved",
+          "timeColumn": "dateobserved",
+          "where": []
+        }
+      ],
+      "thresholds": "20,40,60",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Air Quality Map",
+      "transformations": [
+        {
+          "id": "filterByRefId",
+          "options": {
+            "include": ""
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "grafana-worldmap-panel",
+      "unitPlural": "IPA",
+      "unitSingle": "",
+      "unitSingular": "IPA",
+      "valueName": "current"
+    },
+    {
+      "datasource": "${DS_CRATEDB}",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "displayMode": "auto",
+            "filterable": true
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "noValue": "-",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-red",
+                "value": null
+              },
+              {
+                "color": "light-orange",
+                "value": 20
+              },
+              {
+                "color": "light-yellow",
+                "value": 40
+              },
+              {
+                "color": "light-green",
+                "value": 60
+              }
+            ]
+          },
+          "unit": "IPA"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Date"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 170
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "auto"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "thresholds"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Station"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 135
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Index"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 89
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Level"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 135
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "from": "0",
+                    "id": 1,
+                    "text": "Very Unhealthy",
+                    "to": "19",
+                    "type": 2
+                  },
+                  {
+                    "from": "20",
+                    "id": 2,
+                    "text": "Unhealthy",
+                    "to": "39",
+                    "type": 2,
+                    "value": ""
+                  },
+                  {
+                    "from": "40",
+                    "id": 3,
+                    "text": "Moderate",
+                    "to": "59",
+                    "type": 2,
+                    "value": "40"
+                  },
+                  {
+                    "from": "60",
+                    "id": 4,
+                    "text": "Good",
+                    "to": "1000",
+                    "type": 2,
+                    "value": "60"
+                  }
+                ]
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Index"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 111
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "metric"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 137
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 8,
+        "x": 12,
+        "y": 10
+      },
+      "id": 6,
+      "options": {
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.3.6",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "entity_id",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  dateobserved AS \"Date\",\n  entity_id AS \"Station\",\n  airqualityindex AS \"Index\",\n  airqualityindex AS \"Level\"\nFROM etairqualityobserved\nORDER BY dateobserved DESC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "airqualityindex"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "Index"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "airqualitylevel"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "level"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "etairqualityobserved",
+          "timeColumn": "dateobserved",
+          "where": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Measurement Register",
+      "transparent": true,
+      "type": "table"
+    },
+    {
+      "datasource": "${DS_TESTDATA_DB}",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 15
+      },
+      "id": 10,
+      "options": {
+        "content": "<table align=\"center\">\n\n  <tr>\n\n\t<th><font size=\"3px\">Color</font></th>\n    \n    <th><font size=\"3px\">State</font></th>\n\n    <th><font size=\"3px\">Value</font></th>\n\n    <th><font size=\"3px\">Description of air Quality</font></th>\n    \n\n  </tr>\n\n  <tr>\n\n    <td><font color=96D98D size=\"2px\">Green</font></td>\n\n    <td><font color=96D98D size=\"2px\">Good</font></td>\n    \n    <td><font color=96D98D size=\"2px\">60 and higher</font></td>\n    \n    <td><font color=96D98D size=\"2px\">Air quality is satisfactory, and air pollution poses little or no risk</font></td>\n\n  </tr>\n\n<tr>\n\n    <td><font color=FFEE52 size=\"2px\">Yellow</font></td>\n\n    <td><font color=FFEE52 size=\"2px\">Moderate</font></td>\n    \n    <td><font color=FFEE52 size=\"2px\">40 to 59</font></td>\n    \n    <td><font color=FFEE52 size=\"2px\">Air quality is acceptable. However, there may be a risk for some people, particularly those who are unusually sensitive to air pollution.</font></td>\n\n  </tr>\n\n  <tr>\n\n    <td><font color=\"FFB357\" size=\"2px\">Orange</font></td>\n\n    <td><font color=\"FFB357\" size=\"2px\">Unhealthy</font></td>\n    \n    <td><font color=\"FFB357\" size=\"2px\">20 to 39</font></td>\n    \n    <td><font color=\"FFB357\" size=\"2px\">Some members of the general public may experience health effects; members of sensitive groups may experience more serious health effects.</font></td>\n\n  </tr>\n\n    <tr>\n\n    <td><font color=\"FF7383\" size=\"2px\">Red</font></td>\n\n    <td><font color=\"FF7383\" size=\"2px\">Very Unhealthy</font></td>\n    \n    <td><font color=\"FF7383\" size=\"2px\">0 to 19</font></td>\n    \n    <td><font color=\"FF7383\" size=\"2px\">Health alert: The risk of health effects is increased for everyone.</font></td>\n\n  </tr>\n\n</table>",
+        "mode": "html"
+      },
+      "pluginVersion": "7.3.6",
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__time(time_column),\n  value1\nFROM\n  metric_table\nWHERE\n  $__timeFilter(time_column)\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "",
+      "transparent": true,
+      "type": "text"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 26,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "tags": [],
+          "text": [],
+          "value": []
+        },
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "stations",
+        "options": [
+          {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "AirQualityUnit01",
+            "value": "AirQualityUnit01"
+          },
+          {
+            "selected": false,
+            "text": "AirQualityUnit02",
+            "value": "AirQualityUnit02"
+          },
+          {
+            "selected": false,
+            "text": "AirQualityUnit03",
+            "value": "AirQualityUnit03"
+          },
+          {
+            "selected": false,
+            "text": "AirQualityUnit04",
+            "value": "AirQualityUnit04"
+          },
+          {
+            "selected": false,
+            "text": "AirQualityUnit05",
+            "value": "AirQualityUnit05"
+          }
+        ],
+        "query": "AirQualityUnit01,AirQualityUnit02,AirQualityUnit03,AirQualityUnit04,AirQualityUnit05",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
+        "current": {
+          "selected": false,
+          "text": "1d",
+          "value": "1d"
+        },
+        "error": null,
+        "hide": 0,
+        "label": null,
+        "name": "interval",
+        "options": [
+          {
+            "selected": true,
+            "text": "1d",
+            "value": "1d"
+          },
+          {
+            "selected": false,
+            "text": "2d",
+            "value": "2d"
+          },
+          {
+            "selected": false,
+            "text": "3d",
+            "value": "3d"
+          },
+          {
+            "selected": false,
+            "text": "4d",
+            "value": "4d"
+          },
+          {
+            "selected": false,
+            "text": "5d",
+            "value": "5d"
+          },
+          {
+            "selected": false,
+            "text": "6d",
+            "value": "6d"
+          },
+          {
+            "selected": false,
+            "text": "7d",
+            "value": "7d"
+          },
+          {
+            "selected": false,
+            "text": "14d",
+            "value": "14d"
+          },
+          {
+            "selected": false,
+            "text": "1M",
+            "value": "1M"
+          }
+        ],
+        "query": "1d,2d,3d,4d,5d,6d,7d,14d,1M",
+        "queryValue": "",
+        "refresh": 2,
+        "skipUrlSync": false,
+        "type": "interval"
+      }
+    ]
+  },
+  "time": {
+    "from": "now/M",
+    "to": "now/M"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "Europe/Madrid",
+  "title": "airquality",
+  "uid": "mUqFaqaGk",
+  "version": 11
+}

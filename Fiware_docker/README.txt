@@ -1,0 +1,1 @@
+Use a Linux terminal to execute the command "docker-compose -f docker-compose-demo.yml up" and deploy the fiware system.
